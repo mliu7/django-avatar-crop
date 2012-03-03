@@ -3,3 +3,6 @@
 data.db
 sample_project/site_media/*
 *.egg-info
+
+# Ignore swap files
+*.swp
