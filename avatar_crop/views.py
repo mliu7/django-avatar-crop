@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.contrib import messages
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -77,8 +78,7 @@ def avatar_crop(request, id=None):
             Avatar.objects.filter(id=avatar.id).update(primary=False)
             new_avatar = Avatar(user=request.user, primary=True, avatar=thumb)
             new_avatar.save()
-            request.user.message_set.create(
-                message=ugettext("Your new avatar has been saved successfully."))
+            messages.success(request, "Your new avatar has been saved successfully.")
             return HttpResponseRedirect(reverse("avatar_change"))
 
     return render_to_response("avatar_crop/crop.html", {
